@@ -8,11 +8,13 @@ public class TrashCounter : MonoBehaviour
     private int _currentNumberOfTrash;
     private int _maxNumberOfTrash;
 
-    private void Awake() => _text = GetComponent<TextMeshProUGUI>();
-
     [Inject]
     public void Construct(TrashSpawner trashSpawner)
     {
+        // Сначала получаем ссылку на текст!
+        _text = GetComponent<TextMeshProUGUI>();
+
+        // Теперь вызываем логику, которая использует _text
         SetTrashNumber(trashSpawner.TrashNumber);
     }
 
@@ -23,11 +25,16 @@ public class TrashCounter : MonoBehaviour
         UpdateText();
     }
 
-    public void DecreaseTrashNumber() 
+    private void UpdateText()
+    {
+        // Теперь _text точно не null
+        _text.text = $"{_currentNumberOfTrash} / {_maxNumberOfTrash}";
+    }
+
+    public void DecreaseTrashNumber()
     {
         _currentNumberOfTrash--;
         UpdateText();
     }
 
-    private void UpdateText() => _text.text = $"{_currentNumberOfTrash} / {_maxNumberOfTrash}";
 }

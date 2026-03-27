@@ -13,7 +13,7 @@ public class Health : MonoBehaviour
 
     private void Start()
     {
-        var trashes = _trashSpawner.GetComponentsInChildren<Trash>();
-        Debug.Log($"Найдено мусора: {trashes.Length}");
+        //var trashes = _trashSpawner.GetComponentsInChildren<Trash>();
+        //Debug.Log($"Найдено мусора: {trashes.Length}");
     }
 }
