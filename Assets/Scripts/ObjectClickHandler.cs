@@ -15,7 +15,8 @@ public class ObjectClickHandler : MonoBehaviour, IPointerDownHandler
 
     private void HandleClick()
     {
-        Debug.Log($"{gameObject.name} была нажата!");
+        if (gameObject.TryGetComponent(out Trash trash))
+            trash.Collect();        
     }
 
 }
