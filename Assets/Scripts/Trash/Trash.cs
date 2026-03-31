@@ -9,29 +9,62 @@ using Zenject;
 public class Trash : MonoBehaviour
 {
     [SerializeField] protected TrashTypeSO _trashType;
-    
+    [SerializeField] private GameObject _explosionEffect;
+    [SerializeField] private float _shakePower = 0.25f;
+    [SerializeField] private float _shakeDuration = 0.5f;
+
     private Score _score;
     private TrashCounter _trashCounter;
+    private Health _health;
 
-    // Zenject сам вызовет этот метод при спавне через IInstantiator
     [Inject]
-    public void Construct(Score score, TrashCounter trashCounter)
+    public void Construct(Score score, TrashCounter trashCounter, Health health)
     {
         _score = score;
         _trashCounter = trashCounter;
+        _health = health;
     }
+
+    public void StartDisaster()
+    {
+        StartCoroutine(ShakeAndExplode());
+    }
+    private IEnumerator ShakeAndExplode()
+    {
+        Vector3 originalPos = transform.localPosition;
+        float elapsed = 0f;
+
+        while (elapsed < _shakeDuration)
+        {
+            transform.localPosition = originalPos + Random.insideUnitSphere * _shakePower;
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        Explode();
+    }
+
+    private void Explode()
+    {
+        if (_explosionEffect != null)
+            Instantiate(_explosionEffect, transform.position, Quaternion.identity);
+
+        _trashCounter.DecreaseTrashNumber();
+        DamageToPlanet();
+        gameObject.SetActive(false); // Или Destroy(gameObject); ?
+    }
+
 
     public void Collect()
     {
         _score.AddScore(_trashType.ScoreValue);
         _trashCounter.DecreaseTrashNumber();
 
-        gameObject.SetActive(false); // Или Destroy(gameObject);
+        gameObject.SetActive(false); // Или Destroy(gameObject); ?
     }
 
-    public int DamageToPlanet(int healthPoints, int damageMultiply = 1)
+    public void DamageToPlanet(int damageMultiply = 1)
     {
-        int currentHeath = healthPoints - (_trashType.PolutionValue * damageMultiply);
-        return currentHeath;
+        _health.GetExplodeDamage(_trashType.PolutionValue * damageMultiply);
     }
 }

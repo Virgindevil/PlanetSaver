@@ -1,19 +1,25 @@
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 public class Health : MonoBehaviour
 {
-    private TrashSpawner _trashSpawner;
+    [SerializeField] private Slider _healthSlider;
+    private TrashCounter _trashCounter;
 
     [Inject]
-    public void Construct(TrashSpawner trashSpawner)
+    public void Construct(TrashCounter trashCounter)
     {
-        _trashSpawner = trashSpawner;
+        _trashCounter = trashCounter;
     }
 
-    private void Start()
+    public void GetExplodeDamage(int damage)
     {
-        //var trashes = _trashSpawner.GetComponentsInChildren<Trash>();
-        //Debug.Log($"Найдено мусора: {trashes.Length}");
+        _healthSlider.value -= damage;
+    }
+
+    private void Update()
+    {
+        _healthSlider.value -= _trashCounter.CurrentNumberOfTrash * Time.deltaTime;
     }
 }

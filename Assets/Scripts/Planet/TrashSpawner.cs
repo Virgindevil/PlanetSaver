@@ -8,7 +8,9 @@ public class TrashSpawner : MonoBehaviour
     [SerializeField] private GameObject[] _trashPrefabs;
     [SerializeField] private int _numberOfTrash = 10;
 
-    private TrashFactory _trashFactory;
+    private List<Trash> _activeTrash = new();
+
+    private TrashFactory _trashFactory;    
 
     [Inject]
     public void Construct(TrashFactory trashFactory)
@@ -31,11 +33,11 @@ public class TrashSpawner : MonoBehaviour
 
         for (int i = 0; i < _numberOfTrash; i++)
         {
-            SpawnRandomTower();
+            SpawnRandomTrash();
         }
     }
 
-    private void SpawnRandomTower()
+    private void SpawnRandomTrash()
     {
         if (_trashPrefabs == null || _trashPrefabs.Length == 0) 
             return;
@@ -51,9 +53,25 @@ public class TrashSpawner : MonoBehaviour
 
         Quaternion spawnRotation = Quaternion.FromToRotation(trashLookUp, randomDir);
         Trash newTrash = _trashFactory.Create(_trashPrefabs[randomIndex], spawnPosition, spawnRotation, transform);
-        //GameObject newTrash = _instantiator.InstantiatePrefab(_trashPrefabs[randomIndex], spawnPosition, spawnRotation, transform);
-        //GameObject newTrash = Instantiate(_trashPrefabs[randomIndex], spawnPosition, spawnRotation);
+        _activeTrash.Add(newTrash);
+    }
 
-        newTrash.transform.SetParent(transform, true);
+    public void ExplodeRandomTrash()
+    {
+        if (_activeTrash.Count == 0) return;
+
+        int index = Random.Range(0, _activeTrash.Count);
+        Trash target = _activeTrash[index];
+
+        if (target != null)
+        {
+            _activeTrash.RemoveAt(index);
+            target.StartDisaster();
+        }
+    }
+
+    public void NotifyTrashCollected(Trash trash)
+    {
+        _activeTrash.Remove(trash);
     }
 }

@@ -134,3 +134,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _trashType: {fileID: 11400000, guid: f3b296bb515a7f74598e5700e18476ff, type: 2}
+  _explosionEffect: {fileID: 4857955711938617361, guid: bed0dae6aca129948962cff7ba041bc6, type: 3}
+  _shakePower: 0.1
+  _shakeDuration: 0.5

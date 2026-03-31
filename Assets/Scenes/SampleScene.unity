@@ -403,6 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d64e3ee5e49e76f43b6a6af37faf560a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _healthSlider: {fileID: 273803549}
 --- !u!1 &443230538
 GameObject:
   m_ObjectHideFlags: 0
@@ -912,6 +913,7 @@ MonoBehaviour:
   _autoRotateSpeed: 10
   _sensitivity: 0.25
   _maxSafeSpeed: 500
+  _explosionCooldown: 0.5
 --- !u!114 &1165892016
 MonoBehaviour:
   m_ObjectHideFlags: 0

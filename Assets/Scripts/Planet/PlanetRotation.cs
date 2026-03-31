@@ -1,15 +1,26 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Zenject;
 
 public class PlanetRotation : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] private float _autoRotateSpeed = 10f;
     [SerializeField] private float _sensitivity = 0.5f;
-    [SerializeField] private float _maxSafeSpeed = 500f; 
+    [SerializeField] private float _maxSafeSpeed = 500f;
+    [SerializeField] private float _explosionCooldown = 0.5f;
 
+    private float _lastExplosionTime;
     private float _currentRotationSpeed;
     private Quaternion _lastRotation;
     private bool _isDragging = false;
+    private TrashSpawner _trashSpawner;
+
+    [Inject]
+    public void Construct(TrashSpawner trashSpawner)
+    {        
+        _trashSpawner = trashSpawner;
+    }
 
     private void Start()
     {
@@ -22,9 +33,10 @@ public class PlanetRotation : MonoBehaviour, IDragHandler, IPointerDownHandler, 
         _currentRotationSpeed = angleChange / Time.deltaTime;
         _lastRotation = transform.rotation;
 
-        if (_currentRotationSpeed > _maxSafeSpeed)
+        if (_currentRotationSpeed > _maxSafeSpeed && Time.time > _lastExplosionTime + _explosionCooldown)
         {
-            Debug.Log("Причина тряски");
+            _trashSpawner.ExplodeRandomTrash();
+            _lastExplosionTime = Time.time;
         }
 
         if (!_isDragging)

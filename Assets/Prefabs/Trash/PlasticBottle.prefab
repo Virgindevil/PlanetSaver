@@ -135,6 +135,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _trashType: {fileID: 11400000, guid: f5a5437b54d71594c971692929ab00b1, type: 2}
+  _explosionEffect: {fileID: 4857955711938617361, guid: bed0dae6aca129948962cff7ba041bc6, type: 3}
+  _shakePower: 0.1
+  _shakeDuration: 0.5
 --- !u!1 &4632211554669897167
 GameObject:
   m_ObjectHideFlags: 0
