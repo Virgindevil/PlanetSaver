@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
 
+
 public class PlanetRotation : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] private float _autoRotateSpeed = 10f;
@@ -24,6 +25,7 @@ public class PlanetRotation : MonoBehaviour, IDragHandler, IPointerDownHandler, 
 
     private void Start()
     {
+        gameObject.SetActive(true);
         _lastRotation = transform.rotation;
     }
 

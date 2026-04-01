@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-[RequireComponent(typeof(SphereCollider))]
+
 public class TrashSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] _trashPrefabs;
@@ -10,27 +10,25 @@ public class TrashSpawner : MonoBehaviour
 
     private List<Trash> _activeTrash = new();
 
-    private TrashFactory _trashFactory;    
-
-    [Inject]
-    public void Construct(TrashFactory trashFactory)
-    {
-        _trashFactory = trashFactory;
-    }
-
-    private IInstantiator _instantiator;
+    private TrashFactory _trashFactory;     
     private SphereCollider _collider;
+
     private float _baseRadius;
 
     public int TrashNumber => _numberOfTrash;
 
     [Inject]
-    public void Construct(IInstantiator instantiator)
+    public void Construct(TrashFactory trashFactory)
     {
-        _instantiator = instantiator;
+        _trashFactory = trashFactory;
         _collider = GetComponent<SphereCollider>();
         _baseRadius = _collider.radius;
 
+        SpawnTrash();
+    }
+
+    public void SpawnTrash()
+    {
         for (int i = 0; i < _numberOfTrash; i++)
         {
             SpawnRandomTrash();
@@ -58,7 +56,8 @@ public class TrashSpawner : MonoBehaviour
 
     public void ExplodeRandomTrash()
     {
-        if (_activeTrash.Count == 0) return;
+        if (_activeTrash.Count == 0) 
+            return;
 
         int index = Random.Range(0, _activeTrash.Count);
         Trash target = _activeTrash[index];
@@ -73,5 +72,10 @@ public class TrashSpawner : MonoBehaviour
     public void NotifyTrashCollected(Trash trash)
     {
         _activeTrash.Remove(trash);
+    }
+
+    public void SetTrashCount(int number)
+    {
+        _numberOfTrash = number;
     }
 }

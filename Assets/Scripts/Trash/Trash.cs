@@ -14,15 +14,17 @@ public class Trash : MonoBehaviour
     [SerializeField] private float _shakeDuration = 0.5f;
 
     private Score _score;
-    private TrashCounter _trashCounter;
     private Health _health;
+    private TrashCounter _trashCounter;
+    private TrashSpawner _trashSpawner;
 
     [Inject]
-    public void Construct(Score score, TrashCounter trashCounter, Health health)
+    public void Construct(Score score, TrashCounter trashCounter, Health health, TrashSpawner trashSpawner)
     {
         _score = score;
         _trashCounter = trashCounter;
         _health = health;
+        _trashSpawner = trashSpawner;
     }
 
     public void StartDisaster()
@@ -50,7 +52,10 @@ public class Trash : MonoBehaviour
             Instantiate(_explosionEffect, transform.position, Quaternion.identity);
 
         _trashCounter.DecreaseTrashNumber();
+        _trashSpawner.NotifyTrashCollected(this);
+
         DamageToPlanet();
+
         gameObject.SetActive(false); // Или Destroy(gameObject); ?
     }
 
@@ -59,6 +64,7 @@ public class Trash : MonoBehaviour
     {
         _score.AddScore(_trashType.ScoreValue);
         _trashCounter.DecreaseTrashNumber();
+        _trashSpawner.NotifyTrashCollected(this);
 
         gameObject.SetActive(false); // Или Destroy(gameObject); ?
     }

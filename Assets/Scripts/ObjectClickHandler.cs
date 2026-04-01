@@ -4,11 +4,11 @@ using System;
 
 public class ObjectClickHandler : MonoBehaviour, IPointerDownHandler
 {   
-    public event Action OnTowerClicked;
+    public event Action OnTrashClicked;
             
     public void OnPointerDown(PointerEventData eventData)
     {
-        OnTowerClicked?.Invoke();
+        OnTrashClicked?.Invoke();
         HandleClick();
     }
 
