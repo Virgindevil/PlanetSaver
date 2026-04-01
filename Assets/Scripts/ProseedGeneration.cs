@@ -7,13 +7,13 @@ public class ProseedGeneration
     private int _trashCountMuliply = 10;
 
     private Health _health;
-    private Camera _camera;
+    private MainCamera _camera;
     private Planet _planet;
     private TrashSpawner _trashSpawner;
     private TrashCounter _trashCounter;
 
     [Inject]
-    public void Construct(Planet planet, Camera camera, Health health, TrashSpawner trashSpawner, TrashCounter trashCounter)
+    public void Construct(Planet planet, MainCamera camera, Health health, TrashSpawner trashSpawner, TrashCounter trashCounter)
     {
         _health = health;
         _camera = camera;

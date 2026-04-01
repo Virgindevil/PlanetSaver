@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Menu : MonoBehaviour
 {
     public void Open()
     {
-        gameObject.SetActive(true);
-        Time.timeScale = 0;  
+        Time.timeScale = 0;
+        gameObject.SetActive(true);        
     }
 
     public void Exit()
@@ -16,8 +14,8 @@ public abstract class Menu : MonoBehaviour
     }
 
     public virtual void Continue()
-    { 
-        gameObject.SetActive(false);
+    {
         Time.timeScale = 1;
+        gameObject.SetActive(false);        
     }
 }

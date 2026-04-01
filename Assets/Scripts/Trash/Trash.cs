@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 using Zenject;
 
 [RequireComponent(typeof(ObjectClickHandler))]
@@ -10,7 +7,7 @@ public class Trash : MonoBehaviour
 {
     [SerializeField] protected TrashTypeSO _trashType;
     [SerializeField] private GameObject _explosionEffect;
-    [SerializeField] private float _shakePower = 0.25f;
+    [SerializeField] private float _shakePower = 0.1f;
     [SerializeField] private float _shakeDuration = 0.5f;
 
     private Score _score;

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
@@ -13,6 +11,7 @@ public class Planet : MonoBehaviour
     private void Start()
     {
         Scale = transform.localScale;
+        Time.timeScale = 1f;
     }
 
     public void SetPlanetScale(int multiply)
