@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7780826663691990345}
   - component: {fileID: 2482005234712905931}
   - component: {fileID: 7679923038761575606}
-  - component: {fileID: 9165231407870497050}
   - component: {fileID: 2310280157979876979}
   m_Layer: 0
   m_Name: PlasticBottle
@@ -110,18 +109,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &9165231407870497050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2727555430687774665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02c1b2b9297d4cc4896471656bea54ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2310280157979876979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,7 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _trashType: {fileID: 11400000, guid: f5a5437b54d71594c971692929ab00b1, type: 2}
   _explosionEffect: {fileID: 4857955711938617361, guid: bed0dae6aca129948962cff7ba041bc6, type: 3}
-  _shakePower: 0.1
+  _shakePower: 0.01
   _shakeDuration: 0.5
 --- !u!1 &4632211554669897167
 GameObject:

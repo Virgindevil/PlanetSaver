@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _typeName: "\u041F\u043B\u0430\u0441\u0442\u0438\u043A"
   _scoreValue: 5
-  _polutionValue: 2
+  _polutionValue: 10

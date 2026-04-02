@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6239763255173133699}
   - component: {fileID: 3679917841225370143}
   - component: {fileID: 499507571948333838}
-  - component: {fileID: 1547633201156997671}
   - component: {fileID: 4618253979335229045}
   m_Layer: 0
   m_Name: MetalScrap
@@ -108,18 +107,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1547633201156997671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2323148406773511274}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02c1b2b9297d4cc4896471656bea54ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4618253979335229045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,7 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _trashType: {fileID: 11400000, guid: c936e8b7972e5bb45acdcc3d217a4a91, type: 2}
   _explosionEffect: {fileID: 4857955711938617361, guid: bed0dae6aca129948962cff7ba041bc6, type: 3}
-  _shakePower: 0.1
+  _shakePower: 0.01
   _shakeDuration: 0.5
 --- !u!1 &4807648486994875433
 GameObject:

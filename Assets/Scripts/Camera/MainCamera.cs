@@ -7,7 +7,6 @@ public class MainCamera : MonoBehaviour
     private void Start()
     {
         Position = transform.position;
-        Debug.Log(Position);
     }
 
     public void SetCameraPosition(int multiply)

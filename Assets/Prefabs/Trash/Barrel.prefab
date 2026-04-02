@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1284025173719054860}
   - component: {fileID: 2301935649902551621}
   - component: {fileID: 1963989087083956821}
-  - component: {fileID: 5326954582662437450}
   - component: {fileID: 2452022547355652916}
   m_Layer: 0
   m_Name: Barrel
@@ -109,18 +108,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &5326954582662437450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1916998119541088859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02c1b2b9297d4cc4896471656bea54ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2452022547355652916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,5 +122,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _trashType: {fileID: 11400000, guid: f3b296bb515a7f74598e5700e18476ff, type: 2}
   _explosionEffect: {fileID: 4857955711938617361, guid: bed0dae6aca129948962cff7ba041bc6, type: 3}
-  _shakePower: 0.1
+  _shakePower: 0.01
   _shakeDuration: 0.5

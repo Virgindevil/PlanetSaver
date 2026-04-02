@@ -7,7 +7,7 @@ public class Trash : MonoBehaviour
 {
     [SerializeField] protected TrashTypeSO _trashType;
     [SerializeField] private GameObject _explosionEffect;
-    [SerializeField] private float _shakePower = 0.1f;
+    [SerializeField] private float _shakePower = 0.01f;
     [SerializeField] private float _shakeDuration = 0.5f;
 
     private Score _score;
@@ -52,8 +52,9 @@ public class Trash : MonoBehaviour
         _trashSpawner.NotifyTrashCollected(this);
 
         DamageToPlanet();
-
-        gameObject.SetActive(false); // Или Destroy(gameObject); ?
+        
+        Destroy(gameObject);
+        //gameObject.SetActive(false);         
     }
 
 
@@ -63,11 +64,12 @@ public class Trash : MonoBehaviour
         _trashCounter.DecreaseTrashNumber();
         _trashSpawner.NotifyTrashCollected(this);
 
-        gameObject.SetActive(false); // Или Destroy(gameObject); ?
+        Destroy(gameObject);
+        //gameObject.SetActive(false); 
     }
 
-    public void DamageToPlanet(int damageMultiply = 1)
+    public void DamageToPlanet()
     {
-        _health.GetExplodeDamage(_trashType.PolutionValue * damageMultiply);
+        _health.GetExplodeDamage(_trashType.PolutionValue);
     }
 }

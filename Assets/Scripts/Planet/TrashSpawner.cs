@@ -13,6 +13,7 @@ public class TrashSpawner : MonoBehaviour
     private TrashFactory _trashFactory;     
     private SphereCollider _collider;
 
+    private float _trashScaleMultiply = 1f;
     private float _baseRadius;
 
     public int TrashNumber => _numberOfTrash;
@@ -51,6 +52,7 @@ public class TrashSpawner : MonoBehaviour
 
         Quaternion spawnRotation = Quaternion.FromToRotation(trashLookUp, randomDir);
         Trash newTrash = _trashFactory.Create(_trashPrefabs[randomIndex], spawnPosition, spawnRotation, transform);
+        newTrash.gameObject.transform.localScale *= _trashScaleMultiply;
         _activeTrash.Add(newTrash);
     }
 
@@ -78,4 +80,10 @@ public class TrashSpawner : MonoBehaviour
     {
         _numberOfTrash = number;
     }
+
+    public void IncreaseTrashScale(float multiply)
+    {
+        _trashScaleMultiply += multiply;
+    }
+
 }
