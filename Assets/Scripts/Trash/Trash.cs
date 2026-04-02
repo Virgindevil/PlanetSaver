@@ -52,7 +52,7 @@ public class Trash : MonoBehaviour
         _trashSpawner.NotifyTrashCollected(this);
 
         DamageToPlanet();
-        
+        _score.ChangeScore(-_trashType.ScoreValue);
         Destroy(gameObject);
         //gameObject.SetActive(false);         
     }
@@ -60,7 +60,7 @@ public class Trash : MonoBehaviour
 
     public void Collect()
     {
-        _score.AddScore(_trashType.ScoreValue);
+        _score.ChangeScore(_trashType.ScoreValue);
         _trashCounter.DecreaseTrashNumber();
         _trashSpawner.NotifyTrashCollected(this);
 

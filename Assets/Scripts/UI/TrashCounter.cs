@@ -6,7 +6,9 @@ public class TrashCounter : MonoBehaviour
 {
     private TextMeshProUGUI _text;
     private WinScreen _winScreen;
+
     private int _maxNumberOfTrash;
+    private float _divideNumber = 2.2f;
     public int CurrentNumberOfTrash { get; private set; }
 
     [Inject]
@@ -38,6 +40,10 @@ public class TrashCounter : MonoBehaviour
         {
             _winScreen.Open();
         }
+    }
+    public float TrashDamageToPlanet()
+    { 
+        return _maxNumberOfTrash/ _divideNumber;
     }
 
 }

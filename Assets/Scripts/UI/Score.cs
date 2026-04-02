@@ -17,13 +17,15 @@ public class Score : MonoBehaviour
     private void Awake()
     {
         _text = GetComponent<TextMeshProUGUI>();
-        AddScore(0);
+        ChangeScore(0);
     } 
 
-    public void AddScore(int score)
+    public void ChangeScore(int score)
     {
         _currentScore += score;
         _text.text = _currentScore.ToString();
         _bestScore.TrySetBestScore(_currentScore);
     }
+
+
 }

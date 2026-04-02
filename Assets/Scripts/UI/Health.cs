@@ -9,6 +9,8 @@ public class Health : MonoBehaviour
     private TrashCounter _trashCounter;
     private GameOverScreen _gameOverScreen;
 
+    private float _healthMultiply = 100f;
+    private float _currentHealth;
 
     [Inject]
     public void Construct(TrashCounter trashCounter, GameOverScreen gameOverScreen)
@@ -16,6 +18,7 @@ public class Health : MonoBehaviour
         _trashCounter = trashCounter;
         _gameOverScreen = gameOverScreen;
         _healthSlider = GetComponent<Slider>();
+        _currentHealth = _healthSlider.maxValue;
     }
 
     public void GetExplodeDamage(int damage)
@@ -27,7 +30,7 @@ public class Health : MonoBehaviour
     {
         if (_healthSlider.value > 0)
         {
-            _healthSlider.value -= _trashCounter.CurrentNumberOfTrash * Time.deltaTime;
+            _healthSlider.value -= _trashCounter.TrashDamageToPlanet() * Time.deltaTime;
         }
         else
         {
@@ -37,7 +40,9 @@ public class Health : MonoBehaviour
 
     public void Refill()
     {
-        _healthSlider.maxValue = _healthSlider.maxValue * 2;
+        _currentHealth += _healthMultiply;
+        _healthSlider.maxValue = _currentHealth;
         _healthSlider.value = _healthSlider.maxValue;
+        Debug.Log(_healthSlider.maxValue);
     }
 }
