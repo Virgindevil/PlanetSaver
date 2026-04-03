@@ -6,7 +6,8 @@ public class ProseedGeneration
     private int _cameraDistanceMuliply = 10;
     private int _trashCountMuliply = 10;
     private float _trashScaleMuliply = 0.3f;
-    private float _explosionScaleMuliply = 1.3f;
+    private float _explosionScaleMultiply = 1.3f;
+    private float _explosionDamageMultiply = 1.3f;
 
     private Health _health;
     private MainCamera _camera;
@@ -36,8 +37,9 @@ public class ProseedGeneration
         _trashSpawner.SetTrashCount(_trashSpawner.TrashNumber + _trashCountMuliply);
         _trashCounter.SetTrashNumber(_trashSpawner.TrashNumber);
         _trashSpawner.IncreaseTrashScale(_trashScaleMuliply);
+        _trashSpawner.IncreaseTrashDamage(_explosionDamageMultiply);
         _trashSpawner.SpawnTrash();
-        _explode.IncreaseScale(_explosionScaleMuliply);
+        _explode.IncreaseScale(_explosionScaleMultiply);
         _health.Refill();
     }
 

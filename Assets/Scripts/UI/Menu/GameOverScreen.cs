@@ -1,30 +1,40 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 
 public class GameOverScreen : Menu
 {
     private Health _health;
+    private AdManager _adManager;
 
     [Inject]
-    public void Construct(Health health)
+    public void Construct(Health health, AdManager adManager)
     {
         _health = health;
+        _adManager = adManager;
+
+        _adManager.OnAdClosedMainThread += HandleAdFinished;
+        _adManager.LoadInterstitialAd();
     }
 
-    public override void Continue()
+    private void HandleAdFinished()
     {
-        base.Continue(); 
-        SceneManager.LoadScene(0); 
+        _health.Refill();
+        base.Continue();
     }
 
-    public void Continue(bool isAd)
+    public void Continue(bool showAd)
     {
-        if (isAd)
+        if (showAd && _adManager.IsAdCanBeShowed())
         {
-            Debug.Log("Показываем рекламу...");
-            base.Continue();
-            _health.Refill();
+            _adManager.ShowAd();
         }
+        else
+        {
+            base.Continue();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        _adManager.OnAdClosedMainThread -= HandleAdFinished;
     }
 }

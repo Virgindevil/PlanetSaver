@@ -14,6 +14,7 @@ public class TrashSpawner : MonoBehaviour
     private SphereCollider _collider;
 
     private float _trashScaleMultiply = 1f;
+    private float _damageMultiply;
     private float _baseRadius;
 
     public int TrashNumber => _numberOfTrash;
@@ -24,6 +25,7 @@ public class TrashSpawner : MonoBehaviour
         _trashFactory = trashFactory;
         _collider = GetComponent<SphereCollider>();
         _baseRadius = _collider.radius;
+        _damageMultiply = 1f;
 
         SpawnTrash();
     }
@@ -67,23 +69,16 @@ public class TrashSpawner : MonoBehaviour
         if (target != null)
         {
             _activeTrash.RemoveAt(index);
-            target.StartDisaster();
+            target.StartDisaster(_damageMultiply);
         }
     }
 
-    public void NotifyTrashCollected(Trash trash)
-    {
-        _activeTrash.Remove(trash);
-    }
+    public void NotifyTrashCollected(Trash trash) => _activeTrash.Remove(trash);
 
-    public void SetTrashCount(int number)
-    {
-        _numberOfTrash = number;
-    }
+    public void SetTrashCount(int number) => _numberOfTrash = number;
 
-    public void IncreaseTrashScale(float multiply)
-    {
-        _trashScaleMultiply += multiply;
-    }
+    public void IncreaseTrashScale(float multiply) => _trashScaleMultiply += multiply;
+
+    public void IncreaseTrashDamage(float multiply) => _damageMultiply = multiply;
 
 }

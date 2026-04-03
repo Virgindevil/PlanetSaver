@@ -24,11 +24,12 @@ public class Trash : MonoBehaviour
         _trashSpawner = trashSpawner;
     }
 
-    public void StartDisaster()
+    public void StartDisaster(float damageMultiply)
     {
-        StartCoroutine(ShakeAndExplode());
+        StartCoroutine(ShakeAndExplode(damageMultiply));
     }
-    private IEnumerator ShakeAndExplode()
+
+    private IEnumerator ShakeAndExplode(float damageMultiply)
     {
         Vector3 originalPos = transform.localPosition;
         float elapsed = 0f;
@@ -40,10 +41,10 @@ public class Trash : MonoBehaviour
             yield return null;
         }
 
-        Explode();
+        Explode(damageMultiply);
     }
 
-    private void Explode()
+    private void Explode(float damageMultiply)
     {
         if (_explosionEffect != null)
             Instantiate(_explosionEffect, transform.position, Quaternion.identity);
@@ -51,10 +52,9 @@ public class Trash : MonoBehaviour
         _trashCounter.DecreaseTrashNumber();
         _trashSpawner.NotifyTrashCollected(this);
 
-        DamageToPlanet();
+        DamageToPlanet(damageMultiply);
         _score.ChangeScore(-_trashType.ScoreValue);
-        Destroy(gameObject);
-        //gameObject.SetActive(false);         
+        Destroy(gameObject);    
     }
 
 
@@ -65,11 +65,9 @@ public class Trash : MonoBehaviour
         _trashSpawner.NotifyTrashCollected(this);
 
         Destroy(gameObject);
-        //gameObject.SetActive(false); 
     }
 
-    public void DamageToPlanet()
-    {
-        _health.GetExplodeDamage(_trashType.PolutionValue);
-    }
+    public void DamageToPlanet(float damageMultiply) => _health.GetExplodeDamage(_trashType.PolutionValue * damageMultiply);
+
+    
 }

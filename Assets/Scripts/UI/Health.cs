@@ -21,7 +21,7 @@ public class Health : MonoBehaviour
         _currentHealth = _healthSlider.maxValue;
     }
 
-    public void GetExplodeDamage(int damage)
+    public void GetExplodeDamage(float damage)
     {
         _healthSlider.value -= damage;
     }

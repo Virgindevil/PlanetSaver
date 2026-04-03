@@ -25,7 +25,9 @@ public class GameInstaller : MonoInstaller
 
         Container.Bind<TrashFactory>().AsSingle();
         Container.Bind<ProseedGeneration>().AsSingle();
-                
+
+        Container.BindInterfacesAndSelfTo<AdManager>().AsSingle().NonLazy();
+
         Container.Bind<WinScreen>().FromComponentInHierarchy().AsSingle();
         Container.Bind<GameOverScreen>().FromComponentInHierarchy().AsSingle();
     }
