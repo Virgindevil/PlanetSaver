@@ -18,4 +18,5 @@ public abstract class Menu : MonoBehaviour
         Time.timeScale = 1;
         gameObject.SetActive(false);        
     }
+        
 }

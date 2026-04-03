@@ -32,7 +32,7 @@ public class Health : MonoBehaviour
         {
             _healthSlider.value -= _trashCounter.TrashDamageToPlanet() * Time.deltaTime;
         }
-        else
+        else if (!_gameOverScreen.isActiveAndEnabled && _healthSlider.value <= 0)
         {
             _gameOverScreen.Open();
         }
@@ -43,6 +43,5 @@ public class Health : MonoBehaviour
         _currentHealth += _healthMultiply;
         _healthSlider.maxValue = _currentHealth;
         _healthSlider.value = _healthSlider.maxValue;
-        Debug.Log(_healthSlider.maxValue);
     }
 }
