@@ -30,6 +30,7 @@ public class ProseedGeneration
         _explode.ResetScale();
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     public void Proseed()
     {
         _camera.SetCameraPosition(_cameraDistanceMuliply);

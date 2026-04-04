@@ -12,6 +12,7 @@ public class GameInstaller : MonoInstaller
     [SerializeField] private TrashSpawner _trashSpawner;
     [SerializeField] private TrashCounter _trashCounterUI; 
 
+    // ReSharper disable Unity.PerformanceAnalysis
     public override void InstallBindings()
     {
         Container.BindInstance(_camera).AsSingle();
