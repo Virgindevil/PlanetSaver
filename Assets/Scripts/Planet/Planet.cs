@@ -11,7 +11,6 @@ public class Planet : MonoBehaviour
     private void Start()
     {
         Scale = transform.localScale;
-        Time.timeScale = 1f;
     }
 
     public void SetPlanetScale(int multiply)

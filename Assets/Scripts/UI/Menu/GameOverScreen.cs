@@ -1,3 +1,4 @@
+using UnityEngine.SceneManagement;
 using Zenject;
 
 public class GameOverScreen : Menu
@@ -11,6 +12,8 @@ public class GameOverScreen : Menu
         _health = health;
         _adManager = adManager;
 
+        _health.OnDied += Open; 
+
         _adManager.OnAdClosedMainThread += HandleAdFinished;
         _adManager.LoadInterstitialAd();
     }
@@ -20,21 +23,23 @@ public class GameOverScreen : Menu
         _health.Refill();
         base.Continue();
     }
-
-    public void Continue(bool showAd)
-    {
-        if (showAd && _adManager.IsAdCanBeShowed())
-        {
-            _adManager.ShowAd();
-        }
-        else
-        {
-            base.Continue();
-        }
-    }
-
+    
     private void OnDestroy()
     {
-        _adManager.OnAdClosedMainThread -= HandleAdFinished;
+        _health.OnDied -= Open;
+
+        if (_adManager != null) 
+            _adManager.OnAdClosedMainThread -= HandleAdFinished;
+    }
+
+    public void ShowAdAndContinue()
+    {
+        _adManager.ShowAd();
+    }
+
+    public override void Continue()
+    {
+        base.Continue();
+        SceneManager.LoadScene(0);
     }
 }

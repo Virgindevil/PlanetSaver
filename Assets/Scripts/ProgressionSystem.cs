@@ -1,24 +1,24 @@
 using Zenject;
 
-public class ProseedGeneration 
+public class ProgressionSystem : IInitializable
 {
-    private int _planetScaleMuliply = 5;
-    private int _cameraDistanceMuliply = 10;
-    private int _trashCountMuliply = 10;
-    private float _trashScaleMuliply = 0.3f;
+    private int _planetScaleMultiplier = 5;
+    private int _cameraDistanceMultiplier = 10;
+    private int _trashCountIncrement = 10;
+    private float _trashScaleIncrement = 0.3f;
     private float _explosionScaleMultiply = 1.3f;
     private float _explosionDamageMultiply = 1.3f;
 
     private Health _health;
     private MainCamera _camera;
     private Planet _planet;
-    private Explode _explode;
+    private ExplosionEffectScaleController _explode;
     private TrashSpawner _trashSpawner;
     private TrashCounter _trashCounter;
 
     [Inject]
     public void Construct(Planet planet, MainCamera camera, Health health, 
-        TrashSpawner trashSpawner, TrashCounter trashCounter, Explode explode)
+        TrashSpawner trashSpawner, TrashCounter trashCounter, ExplosionEffectScaleController explode)
     {
         _health = health;
         _camera = camera;
@@ -26,19 +26,22 @@ public class ProseedGeneration
         _explode = explode;
         _trashSpawner = trashSpawner;
         _trashCounter = trashCounter;
+    }
 
+    public void Initialize()
+    {
         _explode.ResetScale();
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
-    public void Proseed()
+    public void StartNextLevel()
     {
-        _camera.SetCameraPosition(_cameraDistanceMuliply);
-        _planet.SetPlanetScale(_planetScaleMuliply);
-        _trashSpawner.SetTrashCount(_trashSpawner.TrashNumber + _trashCountMuliply);
+        _camera.SetCameraPosition(_cameraDistanceMultiplier);
+        _planet.SetPlanetScale(_planetScaleMultiplier);
+        _trashSpawner.SetTrashCount(_trashSpawner.TrashNumber + _trashCountIncrement);
         _trashCounter.SetTrashNumber(_trashSpawner.TrashNumber);
-        _trashSpawner.IncreaseTrashScale(_trashScaleMuliply);
-        _trashSpawner.IncreaseTrashDamage(_explosionDamageMultiply);
+        _trashSpawner.IncreaseTrashScale(_trashScaleIncrement);
+        _trashSpawner.SetTrashDamageMultiplier(_explosionDamageMultiply);
         _trashSpawner.SpawnTrash();
         _explode.IncreaseScale(_explosionScaleMultiply);
         _health.Refill();

@@ -3,12 +3,9 @@ using UnityEngine.EventSystems;
 using System;
 
 public class ObjectClickHandler : MonoBehaviour, IPointerDownHandler
-{   
-    public event Action OnTrashClicked;
-            
+{               
     public void OnPointerDown(PointerEventData eventData)
     {
-        OnTrashClicked?.Invoke();
         HandleClick();
     }
 
@@ -17,5 +14,4 @@ public class ObjectClickHandler : MonoBehaviour, IPointerDownHandler
         if (gameObject.TryGetComponent(out Trash trash))
             trash.Collect();        
     }
-
 }

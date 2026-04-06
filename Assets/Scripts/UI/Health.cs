@@ -1,47 +1,53 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
+using System;
 
 [RequireComponent(typeof(Slider))]
 public class Health : MonoBehaviour
 {
+    public event Action OnDied; 
+
     private Slider _healthSlider;
     private TrashCounter _trashCounter;
-    private GameOverScreen _gameOverScreen;
-
     private float _healthMultiply = 100f;
-    private float _currentHealth;
+    private bool _isDead;
 
     [Inject]
-    public void Construct(TrashCounter trashCounter, GameOverScreen gameOverScreen)
+    public void Construct(TrashCounter trashCounter)
     {
         _trashCounter = trashCounter;
-        _gameOverScreen = gameOverScreen;
         _healthSlider = GetComponent<Slider>();
-        _currentHealth = _healthSlider.maxValue;
     }
 
-    public void GetExplodeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         _healthSlider.value -= damage;
+        CheckDeath();
     }
 
     private void Update()
     {
-        if (_healthSlider.value > 0)
+        if (!_isDead)
         {
             _healthSlider.value -= _trashCounter.TrashDamageToPlanet() * Time.deltaTime;
+            CheckDeath();
         }
-        else if (!_gameOverScreen.isActiveAndEnabled && _healthSlider.value <= 0)
+    }
+
+    private void CheckDeath()
+    {
+        if (!_isDead && _healthSlider.value <= 0)
         {
-            _gameOverScreen.Open();
+            _isDead = true;
+            OnDied?.Invoke(); 
         }
     }
 
     public void Refill()
     {
-        _currentHealth += _healthMultiply;
-        _healthSlider.maxValue = _currentHealth;
+        _healthSlider.maxValue += _healthMultiply;
         _healthSlider.value = _healthSlider.maxValue;
+        _isDead = false; 
     }
 }

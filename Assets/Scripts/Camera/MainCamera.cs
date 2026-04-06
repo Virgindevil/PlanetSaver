@@ -12,7 +12,7 @@ public class MainCamera : MonoBehaviour
     public void SetCameraPosition(int multiply)
     {
         float currentZ = Position.z - multiply;
-        transform.position = new Vector3(0, 0, currentZ);
+        transform.position = new Vector3(transform.position.x, transform.position.y, currentZ);
         Position = transform.position;
     }
 }

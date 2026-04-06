@@ -1,11 +1,13 @@
 using TMPro;
 using UnityEngine;
 using Zenject;
+using System;
 
 public class TrashCounter : MonoBehaviour
 {
+    public event Action OnAllTrashCollected;
+
     private TextMeshProUGUI _text;
-    private WinScreen _winScreen;
 
     private int _maxNumberOfTrash;
     private float _divideNumber = 2.2f;
@@ -16,7 +18,6 @@ public class TrashCounter : MonoBehaviour
     {
         _text = GetComponent<TextMeshProUGUI>();
         SetTrashNumber(trashSpawner.TrashNumber);
-        _winScreen = winScreen;
     }
 
     public void SetTrashNumber(int number)
@@ -37,13 +38,12 @@ public class TrashCounter : MonoBehaviour
         UpdateText();
 
         if (CurrentNumberOfTrash <= 0)
-        {
-            _winScreen.Open();
-        }
+            OnAllTrashCollected?.Invoke();
     }
     public float TrashDamageToPlanet()
     { 
         return _maxNumberOfTrash/ _divideNumber;
+       
     }
 
 }

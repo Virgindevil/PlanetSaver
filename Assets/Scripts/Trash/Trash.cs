@@ -67,7 +67,7 @@ public class Trash : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void DamageToPlanet(float damageMultiply) => _health.GetExplodeDamage(_trashType.PolutionValue * damageMultiply);
+    private void DamageToPlanet(float damageMultiply) => _health.TakeDamage(_trashType.PollutionValue * damageMultiply);
 
     
 }

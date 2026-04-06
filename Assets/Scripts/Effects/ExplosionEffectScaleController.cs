@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Explode : MonoBehaviour
+public class ExplosionEffectScaleController : MonoBehaviour
 {
     public void ResetScale()
     {

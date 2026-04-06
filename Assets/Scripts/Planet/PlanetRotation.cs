@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
 
-
 public class PlanetRotation : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] private float _autoRotateSpeed = 10f;
@@ -18,46 +17,56 @@ public class PlanetRotation : MonoBehaviour, IDragHandler, IPointerDownHandler, 
 
     [Inject]
     public void Construct(TrashSpawner trashSpawner)
-    {        
+    {
         _trashSpawner = trashSpawner;
     }
 
     private void Start()
     {
-        gameObject.SetActive(true);
         _lastRotation = transform.rotation;
     }
 
     private void Update()
     {
+        CalculateRotationSpeed();
+        ExplosionInitialization();
+
+        if (!_isDragging)
+        {
+            AxisAlignment();
+            AutoRotate();
+        }
+    }
+
+    private void CalculateRotationSpeed()
+    {
         float angleChange = Quaternion.Angle(transform.rotation, _lastRotation);
         _currentRotationSpeed = angleChange / Time.deltaTime;
         _lastRotation = transform.rotation;
+    }
 
+    private void ExplosionInitialization()
+    {
         if (_currentRotationSpeed > _maxSafeSpeed && Time.time > _lastExplosionTime + _explosionCooldown)
         {
             _trashSpawner.ExplodeRandomTrash();
             _lastExplosionTime = Time.time;
         }
-
-        if (!_isDragging)
-        {
-            Quaternion targetRotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
-
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _autoRotateSpeed * Time.deltaTime);
-            transform.Rotate(Vector3.up, _autoRotateSpeed * Time.deltaTime, Space.World);
-        }
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    private void AxisAlignment()
     {
-        _isDragging = true;
+        Quaternion targetRotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _autoRotateSpeed * Time.deltaTime);
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    private void AutoRotate()
     {
-        _isDragging = false;
+        transform.Rotate(Vector3.up, _autoRotateSpeed * Time.deltaTime, Space.World);
     }
+
+    public void OnPointerDown(PointerEventData eventData) => _isDragging = true;
+    public void OnPointerUp(PointerEventData eventData) => _isDragging = false;
 
     public void OnDrag(PointerEventData eventData)
     {

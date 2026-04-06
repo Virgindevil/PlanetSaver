@@ -3,7 +3,7 @@ using UnityEngine;
 using Zenject;
 
 
-public class TrashSpawner : MonoBehaviour
+public class TrashSpawner : MonoBehaviour, IInitializable
 {
     [SerializeField] private GameObject[] _trashPrefabs;
     [SerializeField] private int _numberOfTrash = 10;
@@ -26,7 +26,10 @@ public class TrashSpawner : MonoBehaviour
         _collider = GetComponent<SphereCollider>();
         _baseRadius = _collider.radius;
         _damageMultiply = 1f;
+    }
 
+    public void Initialize()
+    {
         SpawnTrash();
     }
 
@@ -79,6 +82,7 @@ public class TrashSpawner : MonoBehaviour
 
     public void IncreaseTrashScale(float multiply) => _trashScaleMultiply += multiply;
 
-    public void IncreaseTrashDamage(float multiply) => _damageMultiply = multiply;
+    public void SetTrashDamageMultiplier(float multiply) => _damageMultiply = multiply;
 
+    
 }
